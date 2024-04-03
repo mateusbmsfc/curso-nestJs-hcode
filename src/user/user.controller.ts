@@ -16,36 +16,26 @@ export class UserController {
 
     @Get()
     async read() {
-        return { users: [] }
+        return this.userService.list();
     }
 
     @Get(':id')
     async readOne( @Param() params ) {
-        return { user: {}, params }
+        return this.userService.show(params.id);
     }
 
     @Put(':id')
     async update( @Param() params, @Body() body: UpdatePutUserDTO ) {
-        return {
-            method: 'put',
-            body,
-            params
-        }
+        return this.userService.update(params.id, body);
     }
 
     @Patch(':id')
     async updatePartial( @Param() params, @Body() body: UpdatePatchUserDTO ) {
-        return {
-            method: 'patch',
-            body,
-            params
-        }
+        return this.userService.updatePatch(params.id, body);
     }
 
     @Delete(':id')
     async delete( @Param() params ) {
-        return {
-            params
-        }
+        return this.userService.delete(params.id);
     }
 }
